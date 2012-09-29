@@ -98,4 +98,20 @@ public class GeoPoint {
 		return Distance.between(this, that);
 	}
 
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other == this) { return true; }
+		if (!(other instanceof GeoPoint)) { return false; }
+		GeoPoint d = (GeoPoint) other;
+		return this.latitude.equals(d.latitude) && this.longitude.equals(d.longitude);
+	}
+
 }

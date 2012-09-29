@@ -68,4 +68,8 @@ public class GeoPoint {
 			longitude != 0 ? longitudeDirection : "", decimalToDms(longitude, locale));
 	}
 
+	public Distance distanceTo(GeoPoint that) {
+		return Distance.between(this, that);
+	}
+
 }

@@ -12,6 +12,41 @@ class GeoPointSpec extends Specification with BeforeAfter {
 		Locale.setDefault(Locale.ENGLISH)
 	}
 
+	"GeoPoint to DD (decimal degree) conversion" should {
+
+		"return whatever you put in" in {
+			val geoPoint = GeoPoint.parse(46.414167, 6.927500)
+			geoPoint.asDd must be equalTo("46.414167, 6.9275")
+		}
+
+		"truncate trailing zeros" in {
+			val geoPoint = GeoPoint.parse(46.41400, 6.927500)
+			geoPoint.asDd must be equalTo("46.414, 6.9275")
+		}
+
+		"have a maximum precision of 6 decimal places" in {
+			val geoPoint = GeoPoint.parse(46.414167123, 6.927500123)
+			geoPoint.asDd must be equalTo("46.414167, 6.9275")
+		}
+
+		"be able to output localized results" in {
+			val geoPoint = GeoPoint.parse(-33.855270, 151.209725)
+			geoPoint.asDd(Locale.GERMAN) must be equalTo("-33,85527, 151,209725")
+		}
+
+		"work correctly when using the parameterized as" in {
+			val geoPoint = GeoPoint.parse(46.414167, 6.927500)
+			geoPoint.as(GeoPointFormat.DD) must be equalTo(geoPoint.asDd)
+			geoPoint.as(GeoPointFormat.DecimalDegrees) must be equalTo(geoPoint.as(GeoPointFormat.DD))
+		}
+
+		"work correctly when using the parameterized as and a specific locale" in {
+			val geoPoint = GeoPoint.parse(-14.170074, -141.236336)
+			geoPoint.as(GeoPointFormat.DecimalDegrees, Locale.GERMAN) must be equalTo("-14,170074, -141,236336")
+		}
+
+	}
+
 	"GeoPoint to DMS (degrees, minutes, seconds) conversion" should {
 
 		"work correctly for NE coordinates" in {
@@ -46,7 +81,8 @@ class GeoPointSpec extends Specification with BeforeAfter {
 
 		"work correctly when using the parameterized as" in {
 			val geoPoint = GeoPoint.parse(46.414167, 6.927500)
-			geoPoint.as(GeoPointFormat.DegreesMinutesSeconds) must be equalTo(geoPoint.asDms)
+			geoPoint.as(GeoPointFormat.DMS) must be equalTo(geoPoint.asDms)
+			geoPoint.as(GeoPointFormat.DegreesMinutesSeconds) must be equalTo(geoPoint.as(GeoPointFormat.DMS))
 		}
 
 		"work correctly when using the parameterized as and a specific locale" in {

@@ -24,9 +24,23 @@ public class GeoPoint {
 
 	public String as(GeoPointFormat format, Locale locale) {
 		switch (format) {
+			case DD: return asDd(locale);
+			case DecimalDegrees: return asDd(locale);
+			case DMS: return asDms(locale);
 			case DegreesMinutesSeconds: return asDms(locale);
 		}
 		return "";
+	}
+
+	public String asDd() {
+		return asDd(Locale.getDefault());
+	}
+
+	public String asDd(Locale locale) {
+		DecimalFormat df = (DecimalFormat) NumberFormat.getInstance(locale);
+		// 6 decimal places = ~11cm precision
+		df.applyPattern("#.######");
+		return String.format("%s, %s", df.format(latitude), df.format(longitude));
 	}
 
 	private String decimalToDms(Double coordinate, Locale locale) {

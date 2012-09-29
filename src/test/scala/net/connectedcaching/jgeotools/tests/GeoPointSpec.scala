@@ -47,6 +47,30 @@ class GeoPointSpec extends Specification with BeforeAfter {
 
 	}
 
+	"GeoPoint to DM (decimal minutes) conversion" should {
+
+		"work correctly for NE coordinates" in {
+			val geoPoint = GeoPoint.parse(46.414167, 6.927500)
+			geoPoint.asDm must be equalTo("N46° 24.850 E006° 55.650")
+		}
+
+		"work correctly for SE coordinates" in {
+			val geoPoint = GeoPoint.parse(-33.855270, 151.209725)
+			geoPoint.asDm must be equalTo("S33° 51.316 E151° 12.583")
+		}
+
+		"work correctly for NW coordinates" in {
+			val geoPoint = GeoPoint.parse(50.116973, -122.945424)
+			geoPoint.asDm must be equalTo("N50° 07.018 W122° 56.725")
+		}
+
+		"work correctly for SW coordinates" in {
+			val geoPoint = GeoPoint.parse(-14.170074, -141.236336)
+			geoPoint.asDm must be equalTo("S14° 10.204 W141° 14.180")
+		}
+
+	}
+
 	"GeoPoint to DMS (degrees, minutes, seconds) conversion" should {
 
 		"work correctly for NE coordinates" in {

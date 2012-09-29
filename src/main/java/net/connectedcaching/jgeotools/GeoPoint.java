@@ -26,6 +26,8 @@ public class GeoPoint {
 		switch (format) {
 			case DD: return asDd(locale);
 			case DecimalDegrees: return asDd(locale);
+			case DM: return asDm(locale);
+			case DecimalMinutes: return asDm(locale);
 			case DMS: return asDms(locale);
 			case DegreesMinutesSeconds: return asDms(locale);
 		}
@@ -41,6 +43,30 @@ public class GeoPoint {
 		// 6 decimal places = ~11cm precision
 		df.applyPattern("#.######");
 		return String.format("%s, %s", df.format(latitude), df.format(longitude));
+	}
+
+	private String decimalToDm(Double coordinate, String degreeFormatPattern, Locale locale) {
+		DecimalFormat degreeFormat = (DecimalFormat) NumberFormat.getInstance(locale);
+		degreeFormat.applyPattern(degreeFormatPattern);
+		DecimalFormat minuteFormat = (DecimalFormat) NumberFormat.getInstance(locale);
+		minuteFormat.applyPattern("00.000");
+		coordinate = Math.abs(coordinate);
+		Double fractionalPart = coordinate % 1;
+		Integer degrees = coordinate.intValue();
+		coordinate = fractionalPart * 60;
+		return String.format("%s° %s", degreeFormat.format(degrees), minuteFormat.format(coordinate));
+	}
+
+	public String asDm() {
+		return asDm(Locale.getDefault());
+	}
+
+	public String asDm(Locale locale) {
+		String latitudeDirection = latitude > 0 ? "N" : "S";
+		String longitudeDirection = longitude > 0 ? "E" : "W";
+		return String.format("%s%s %s%s",
+				latitude != 0 ? latitudeDirection : "", decimalToDm(latitude, "00", locale),
+				longitude != 0 ? longitudeDirection : "", decimalToDm(longitude, "000", locale));
 	}
 
 	private String decimalToDms(Double coordinate, Locale locale) {

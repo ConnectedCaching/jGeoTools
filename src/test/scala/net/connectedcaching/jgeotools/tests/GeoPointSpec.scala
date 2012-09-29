@@ -1,7 +1,7 @@
 package net.connectedcaching.jgeotools.tests
 
 import org.specs2.mutable._
-import net.connectedcaching.jgeotools.GeoPoint
+import net.connectedcaching.jgeotools.{GeoPointFormat, GeoPoint}
 import java.util.Locale
 
 class GeoPointSpec extends Specification with BeforeAfter {
@@ -42,6 +42,16 @@ class GeoPointSpec extends Specification with BeforeAfter {
 		"be able to output localized results" in {
 			val geoPoint = GeoPoint.parse(-33.855270, 151.209725)
 			geoPoint.asDms(Locale.GERMAN) must be equalTo("S33° 51' 18,972\" E151° 12' 35,01\"")
+		}
+
+		"work correctly when using the parameterized as" in {
+			val geoPoint = GeoPoint.parse(46.414167, 6.927500)
+			geoPoint.as(GeoPointFormat.DegreesMinutesSeconds) must be equalTo(geoPoint.asDms)
+		}
+
+		"work correctly when using the parameterized as and a specific locale" in {
+			val geoPoint = GeoPoint.parse(46.414167, 6.927500)
+			geoPoint.as(GeoPointFormat.DegreesMinutesSeconds, Locale.GERMAN) must be equalTo(geoPoint.asDms(Locale.GERMAN))
 		}
 
 	}

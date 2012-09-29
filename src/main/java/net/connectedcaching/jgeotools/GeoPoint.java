@@ -18,6 +18,17 @@ public class GeoPoint {
 		return point;
 	}
 
+	public String as(GeoPointFormat format) {
+		return as(format, Locale.getDefault());
+	}
+
+	public String as(GeoPointFormat format, Locale locale) {
+		switch (format) {
+			case DegreesMinutesSeconds: return asDms(locale);
+		}
+		return "";
+	}
+
 	private String decimalToDms(Double coordinate, Locale locale) {
 		DecimalFormat df = (DecimalFormat) NumberFormat.getInstance(locale);
 		df.applyPattern("#.###");

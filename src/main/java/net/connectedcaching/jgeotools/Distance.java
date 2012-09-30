@@ -25,19 +25,45 @@ public abstract class Distance {
 	}
 
 	public static Distance kilometers(Double kilometers) {
-		return new FixedDistance(kilometers * 1 / metricFactors.get(MetricUnit.kilometers));
+		return Distance.of(kilometers, MetricUnit.kilometers);
+	}
+
+	public static Distance feet(Double feet) {
+		return Distance.of(feet, ImperialUnit.feet);
+	}
+
+	public static Distance yards(Double yards) {
+		return Distance.of(yards, ImperialUnit.yards);
+	}
+
+	public static Distance miles(Double miles) {
+		return Distance.of(miles, ImperialUnit.miles);
+	}
+
+	public static Distance of(Double amount, MetricUnit unit) {
+		return new FixedDistance(amount / metricFactors.get(unit));
+	}
+
+	public static Distance of(Double amount, ImperialUnit unit) {
+		return new FixedDistance(amount / imperialFactors.get(unit));
 	}
 
 	protected abstract Double getDistanceInMeters();
 
+	public Distance add(Distance that) {
+		return Distance.meters(this.getDistanceInMeters() + that.getDistanceInMeters());
+	}
+
+	public Distance subtract(Distance that) {
+		return Distance.meters(this.getDistanceInMeters() - that.getDistanceInMeters());
+	}
+
 	public Double in(MetricUnit unit) {
-		Double factor = metricFactors.get(unit);
-		return getDistanceInMeters() * factor;
+		return getDistanceInMeters() * metricFactors.get(unit);
 	}
 
 	public Double in(ImperialUnit unit) {
-		Double factor = imperialFactors.get(unit);
-		return getDistanceInMeters() * factor;
+		return getDistanceInMeters() * imperialFactors.get(unit);
 	}
 
 	@Override

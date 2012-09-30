@@ -37,12 +37,4 @@ public class PointToPointDistance extends Distance {
 		return getHaversineDistance();
 	}
 
-	@Override
-	public boolean equals(Object other) {
-		if (other == this) { return true; }
-		if (!(other instanceof PointToPointDistance)) { return false; }
-		PointToPointDistance d = (PointToPointDistance) other;
-		return (this.p1.equals(d.p1) && this.p2.equals(d.p2)) || (this.p1.equals(d.p2) && this.p2.equals(d.p1));
-	}
-
 }

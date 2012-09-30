@@ -1,32 +1,20 @@
 package net.connectedcaching.jgeotools.tests
 
 import org.specs2.mutable._
-import net.connectedcaching.jgeotools.{Distance, MetricUnit, GeoPoint}
+import net.connectedcaching.jgeotools.{FixedDistance, PointToPointDistance, Distance, GeoPoint}
 
 class DistanceSpec extends Specification {
 
-	"Distance computation" should {
+	"Distance" should {
 
-		val p1 = GeoPoint.parse(50.117111, -5.477593)
-		val p2 = GeoPoint.parse(51.129552, 1.321179)
-
-		"be reflexive" in {
-			val distance = Distance.between(p1, p2)
-			distance must be equalTo(distance)
+		"return a PointToPointDistance for between" in {
+			val d = Distance.between(GeoPoint.parse(0, 0), GeoPoint.parse(1, 1))
+			d must beAnInstanceOf[PointToPointDistance]
 		}
 
-		"be commutative" in {
-			p1.distanceTo(p2) must be equalTo(p2.distanceTo(p1))
-		}
-
-		"deliver correct results" in {
-			math.round(Distance.between(p1, p2).in(MetricUnit.meters)) must be equalTo(492451)
-		}
-
-		"be consistent accross different metric units" in {
-			val meters = Distance.between(p1, p2).in(MetricUnit.meters)
-			val kilometers = Distance.between(p1, p2).in(MetricUnit.kilometers)
-			kilometers must be equalTo(meters / 1000)
+		"return a FixedDistance when using the fixed distance factory methods" in {
+			Distance.meters(5) must beAnInstanceOf[FixedDistance]
+			Distance.kilometers(42) must beAnInstanceOf[FixedDistance]
 		}
 
 	}

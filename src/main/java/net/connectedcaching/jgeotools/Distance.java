@@ -5,6 +5,8 @@ import java.util.Map;
 
 public abstract class Distance {
 
+	// base unit for all computations is meters
+	protected static final Double EARTH_RADIUS = 6371009.0;
 	protected static final Map<MetricUnit, Double> metricFactors = new HashMap<MetricUnit, Double>();
 	protected static final Map<ImperialUnit, Double> imperialFactors = new HashMap<ImperialUnit, Double>();
 	static

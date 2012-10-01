@@ -98,12 +98,40 @@ public class GeoPoint {
 		return Distance.between(this, that);
 	}
 
+	public GeoPoint project(Distance distance, Bearing bearing) {
+
+		Double d = distance.in(MetricUnit.meters);
+		Double dR = d / distance.EARTH_RADIUS;
+
+		Double latitude = Math.asin(Math.sin(this.getLatitudeRadians()) *
+				Math.cos(dR) + Math.cos(this.getLatitudeRadians()) *
+				Math.sin(dR) * Math.cos(bearing.radians()));
+
+		Double longitude = this.getLongitudeRadians() + Math.atan2(Math.sin(bearing.radians()) *
+				Math.sin(dR) * Math.cos(this.getLatitudeRadians()),
+				Math.cos(dR) - Math.sin(this.getLatitudeRadians()) *
+				Math.sin(latitude));
+
+		longitude = (longitude + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
+
+		return GeoPoint.parse(Math.toDegrees(latitude), Math.toDegrees(longitude));
+
+	}
+
 	public Double getLatitude() {
 		return latitude;
 	}
 
+	protected Double getLatitudeRadians() {
+		return Math.toRadians(latitude);
+	}
+
 	public Double getLongitude() {
 		return longitude;
+	}
+
+	protected Double getLongitudeRadians() {
+		return Math.toRadians(longitude);
 	}
 
 	@Override

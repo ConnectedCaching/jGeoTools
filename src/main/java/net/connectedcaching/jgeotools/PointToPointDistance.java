@@ -5,9 +5,6 @@ import java.util.Map;
 
 public class PointToPointDistance extends Distance {
 
-	// base unit for all computations is meters
-	protected static final Double EARTH_RADIUS = 6371009.0;
-
 	public PointToPointDistance(GeoPoint p1, GeoPoint p2) {
 		this.p1 = p1;
 		this.p2 = p2;

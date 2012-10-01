@@ -1,7 +1,7 @@
 package net.connectedcaching.jgeotools.tests
 
 import org.specs2.mutable._
-import net.connectedcaching.jgeotools.{GeoPointFormat, GeoPoint}
+import net.connectedcaching.jgeotools._
 import java.util.Locale
 
 class GeoPointSpec extends Specification with BeforeAfter {
@@ -112,6 +112,36 @@ class GeoPointSpec extends Specification with BeforeAfter {
 		"work correctly when using the parameterized as and a specific locale" in {
 			val geoPoint = GeoPoint.parse(46.414167, 6.927500)
 			geoPoint.as(GeoPointFormat.DegreesMinutesSeconds, Locale.GERMAN) must be equalTo(geoPoint.asDms(Locale.GERMAN))
+		}
+
+	}
+
+	"GeoPoint projection" should {
+
+		val geoPoint = GeoPoint.parse(-33.636292, 151.331842)
+
+		"return a new GeoPoint" in {
+			geoPoint.project(Distance.meters(100), Bearing.decimalDegrees(90)) must beAnInstanceOf[GeoPoint]
+		}
+
+		"be chainable" in {
+			val p2 = geoPoint
+				.project(Distance.meters(100), Bearing.decimalDegrees(0))
+				.project(Distance.meters(100), Bearing.decimalDegrees(90))
+				.project(Distance.meters(100), Bearing.decimalDegrees(180))
+				.project(Distance.meters(100), Bearing.decimalDegrees(270))
+			// delta comparison of the two GeoPoints - accuracy 1.5mm
+			p2.distanceTo(geoPoint).in(MetricUnit.meters) must be lessThan(0.0015)
+		}
+
+		"have the expected distance" in {
+			val p2 = geoPoint.project(Distance.meters(587), Bearing.decimalDegrees(237))
+			math.round(Distance.between(geoPoint, p2).in(MetricUnit.meters)) must be equalTo(587)
+		}
+
+		"return the correct projected GeoPoint" in {
+			val p2 = geoPoint.project(Distance.meters(300), Bearing.decimalDegrees(10))
+			p2.asDms must be equalTo("S33° 38' 1.086\" E151° 19' 56.657\"")
 		}
 
 	}

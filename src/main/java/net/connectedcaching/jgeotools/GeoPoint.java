@@ -94,6 +94,18 @@ public class GeoPoint {
 			longitude != 0 ? longitudeDirection : "", decimalToDms(longitude, locale));
 	}
 
+	public Bearing bearingTo(GeoPoint that) {
+		return Bearing.between(this, that);
+	}
+
+	public Bearing initialBearingTo(GeoPoint that) {
+		return bearingTo(that);
+	}
+
+	public Bearing finalBearingTo(GeoPoint that) {
+		return Bearing.decimalDegrees((Bearing.between(that, this).decimalDegrees() + 180) % 360);
+	}
+
 	public Distance distanceTo(GeoPoint that) {
 		return Distance.between(this, that);
 	}

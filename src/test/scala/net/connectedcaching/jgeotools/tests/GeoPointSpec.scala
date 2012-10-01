@@ -139,7 +139,12 @@ class GeoPointSpec extends Specification with BeforeAfter {
 			math.round(Distance.between(geoPoint, p2).in(MetricUnit.meters)) must be equalTo(587)
 		}
 
-		"return the correct projected GeoPoint" in {
+		"have the expected bearing" in {
+			val p2 = geoPoint.project(Distance.kilometers(1), Bearing.degrees(90))
+			math.round(geoPoint.bearingTo(p2).decimalDegrees) must be equalTo(90)
+		}
+
+		"return the a correctly projected GeoPoint" in {
 			val p2 = geoPoint.project(Distance.meters(300), Bearing.decimalDegrees(10))
 			p2.asDms must be equalTo("S33° 38' 1.086\" E151° 19' 56.657\"")
 		}

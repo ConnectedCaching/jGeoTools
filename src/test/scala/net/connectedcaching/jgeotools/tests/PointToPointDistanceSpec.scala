@@ -15,6 +15,10 @@ class PointToPointDistanceSpec extends Specification {
 			distance must be equalTo(distance)
 		}
 
+		"work with zero distance" in {
+			p1.distanceTo(p1) must be equalTo(Distance.meters(0))
+		}
+
 		"be commutative" in {
 			p1.distanceTo(p2) must be equalTo(p2.distanceTo(p1))
 		}

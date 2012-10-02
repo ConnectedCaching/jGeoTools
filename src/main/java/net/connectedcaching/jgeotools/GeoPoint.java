@@ -143,7 +143,8 @@ public class GeoPoint {
 		if (other == this) { return true; }
 		if (!(other instanceof GeoPoint)) { return false; }
 		GeoPoint d = (GeoPoint) other;
-		return this.latitude.equals(d.latitude) && this.longitude.equals(d.longitude);
+		return this.referenceEllipsoid.equals(d.referenceEllipsoid)
+			&& this.latitude.equals(d.latitude) && this.longitude.equals(d.longitude);
 	}
 
 }

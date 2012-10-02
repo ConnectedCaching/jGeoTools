@@ -8,19 +8,19 @@ public class GeoPoint {
 
 	protected Double latitude;
 	protected Double longitude;
-	protected ReferenceEllipsoid ellipsoid;
+	protected Ellipsoid referenceEllipsoid;
 
 	private GeoPoint() {}
 
 	public static GeoPoint parse(Double latitude, Double longitude) {
-		return parse(latitude, longitude, ReferenceEllipsoid.WGS84);
+		return parse(latitude, longitude, Ellipsoid.WGS84);
 	}
 
-	public static GeoPoint parse(Double latitude, Double longitude, ReferenceEllipsoid ellipsoid) {
+	public static GeoPoint parse(Double latitude, Double longitude, Ellipsoid referenceEllipsoid) {
 		GeoPoint point = new GeoPoint();
 		point.latitude = latitude;
 		point.longitude = longitude;
-		point.ellipsoid = ellipsoid;
+		point.referenceEllipsoid = referenceEllipsoid;
 		return point;
 	}
 

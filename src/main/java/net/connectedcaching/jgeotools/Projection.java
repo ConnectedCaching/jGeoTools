@@ -26,7 +26,7 @@ public class Projection {
 
 	private GeoPoint project() {
 		Double d = distance.in(MetricUnit.meters);
-		Double dR = d / distance.EARTH_RADIUS;
+		Double dR = d / GeoConstants.EARTH_RADIUS;
 
 		Double latitude = Math.asin(Math.sin(from.getLatitudeRadians()) *
 				Math.cos(dR) + Math.cos(from.getLatitudeRadians()) *

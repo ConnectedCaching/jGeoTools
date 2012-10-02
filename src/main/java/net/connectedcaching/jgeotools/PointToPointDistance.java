@@ -24,9 +24,9 @@ public class PointToPointDistance extends Distance {
 	protected Double getHaversineDistance() {
 		Double a = Math.pow(Math.sin(getLatitudeDistance() / 2.0), 2) +
 				Math.pow(Math.sin(getLongitudeDistance() / 2.0), 2) *
-				Math.cos(Math.toRadians(p1.getLatitude())) * Math.cos(Math.toRadians(p2.getLatitude()));
+				Math.cos(p1.getLatitudeRadians()) * Math.cos(p2.getLatitudeRadians());
 		Double angularDistance = 2.0 * Math.atan2(Math.sqrt(a), Math.sqrt(1.0 - a));
-		return EARTH_RADIUS * angularDistance;
+		return GeoConstants.EARTH_RADIUS * angularDistance;
 	}
 
 	@Override

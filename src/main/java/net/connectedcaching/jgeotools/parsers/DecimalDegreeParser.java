@@ -1,7 +1,7 @@
 package net.connectedcaching.jgeotools.parsers;
 
+import net.connectedcaching.jgeotools.Ellipsoid;
 import net.connectedcaching.jgeotools.GeoPoint;
-import net.connectedcaching.jgeotools.ReferenceEllipsoid;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +17,7 @@ public class DecimalDegreeParser extends GeoPointParser {
 	}
 
 	@Override
-	public GeoPoint parse(String input, ReferenceEllipsoid ellipsoid) {
+	public GeoPoint parse(String input, Ellipsoid ellipsoid) {
 		Matcher matcher = coordinatePattern.matcher(input);
 		matcher.find();
 		Double latitude = Double.parseDouble(matcher.group(1)) % 90;

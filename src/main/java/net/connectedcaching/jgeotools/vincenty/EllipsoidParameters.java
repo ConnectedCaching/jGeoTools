@@ -8,8 +8,24 @@ public class EllipsoidParameters {
 		this.inverseFlattening = f;
 	}
 
-	public Double equatorialAxis;
-	public Double polarAxis;
-	public Double inverseFlattening;
+	private Double equatorialAxis;
+	private Double polarAxis;
+	private Double inverseFlattening;
+
+	public Double getEquatorialAxis() {
+		return equatorialAxis;
+	}
+
+	public Double getPolarAxis() {
+		return polarAxis;
+	}
+
+	public Double getInverseFlattening() {
+		return inverseFlattening;
+	}
+
+	public Double getFlattening() {
+		return 1 / inverseFlattening;
+	}
 
 }

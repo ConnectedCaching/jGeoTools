@@ -119,7 +119,7 @@ public class GeoPoint {
 	}
 
 	public GeoPoint project(Distance distance, Bearing bearing) {
-		return Projection.from(this).go(distance).heading(bearing);
+		return new Projection(this, distance, bearing).project();
 	}
 
 	public Double getLatitude() {
@@ -136,6 +136,10 @@ public class GeoPoint {
 
 	protected Double getLongitudeRadians() {
 		return Math.toRadians(longitude);
+	}
+
+	public Ellipsoid getReferenceEllipsoid() {
+		return referenceEllipsoid;
 	}
 
 	@Override

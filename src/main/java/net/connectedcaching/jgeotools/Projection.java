@@ -2,29 +2,18 @@ package net.connectedcaching.jgeotools;
 
 public class Projection {
 
-	public static Projection from(GeoPoint from) {
-		Projection p = new Projection();
-		p.from = from;
-		return p;
+	public Projection(GeoPoint from, Distance distance, Bearing heading) {
+		this.from = from;
+		this.distance = distance;
+		this.bearing = heading;
 	}
-
-	private Projection() {}
 
 	protected GeoPoint from;
-	protected Distance distance = Distance.meters(0.0);
+	protected Distance distance;
 	protected Bearing bearing;
 
-	public Projection go(Distance distance)	 {
-		this.distance = distance;
-		return this;
-	}
+	public GeoPoint project() {
 
-	public GeoPoint heading(Bearing bearing) {
-		this.bearing = bearing;
-		return project();
-	}
-
-	private GeoPoint project() {
 		Double d = distance.in(MetricUnit.meters);
 		Double dR = d / GeoConstants.EARTH_RADIUS;
 
@@ -39,7 +28,8 @@ public class Projection {
 
 		longitude = (longitude + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
 
-		return GeoPoint.parse(Math.toDegrees(latitude), Math.toDegrees(longitude));
+		return GeoPoint.parse(Math.toDegrees(latitude), Math.toDegrees(longitude), from.getReferenceEllipsoid());
+
 	}
 
 }

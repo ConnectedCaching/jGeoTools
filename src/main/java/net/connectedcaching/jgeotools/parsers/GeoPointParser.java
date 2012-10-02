@@ -1,6 +1,6 @@
 package net.connectedcaching.jgeotools.parsers;
 
-import net.connectedcaching.jgeotools.Ellipsoid;
+import net.connectedcaching.jgeotools.vincenty.Ellipsoid;
 import net.connectedcaching.jgeotools.GeoPoint;
 
 public abstract class GeoPointParser {

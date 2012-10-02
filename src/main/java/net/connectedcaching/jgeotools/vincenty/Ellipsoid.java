@@ -1,4 +1,4 @@
-package net.connectedcaching.jgeotools;
+package net.connectedcaching.jgeotools.vincenty;
 
 public enum Ellipsoid {
 

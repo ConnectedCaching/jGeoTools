@@ -1,5 +1,8 @@
 package net.connectedcaching.jgeotools;
 
+import net.connectedcaching.jgeotools.vincenty.Ellipsoid;
+import net.connectedcaching.jgeotools.vincenty.EllipsoidParameters;
+
 import java.util.HashMap;
 import java.util.Map;
 

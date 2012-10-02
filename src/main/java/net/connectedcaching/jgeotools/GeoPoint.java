@@ -1,5 +1,7 @@
 package net.connectedcaching.jgeotools;
 
+import net.connectedcaching.jgeotools.vincenty.Ellipsoid;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;

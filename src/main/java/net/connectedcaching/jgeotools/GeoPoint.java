@@ -129,6 +129,10 @@ public class GeoPoint {
 		return Distance.between(this, that);
 	}
 
+	public GeoPoint midpointTo(GeoPoint that) {
+		return ((PointToPointDistance) Distance.between(this, that)).midpoint();
+	}
+
 	public GeoPoint project(Distance distance, Bearing bearing) {
 		return new Projection(this, distance, bearing).project();
 	}

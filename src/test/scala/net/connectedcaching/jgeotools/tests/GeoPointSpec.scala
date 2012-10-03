@@ -138,7 +138,7 @@ class GeoPointSpec extends Specification with BeforeAfter {
 		}
 
 		"throw an exception for true conversions since they are not yet supported" in {
-			GeoPoint.parse(0.0, 0.0).convertTo(Ellipsoid.GRS80) must throwA[UnsupportedOperationException]
+			GeoPoint.parse(0.0, 0.0).convertTo(Ellipsoid.GRS80) must throwAn[UnsupportedOperationException]
 		}
 
 	}

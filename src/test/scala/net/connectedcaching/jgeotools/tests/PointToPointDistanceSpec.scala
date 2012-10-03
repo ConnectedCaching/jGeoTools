@@ -6,10 +6,10 @@ import net.connectedcaching.jgeotools.vincenty.Ellipsoid
 
 class PointToPointDistanceSpec extends Specification {
 
-	"Distance computation" should {
+	val p1 = GeoPoint.parse(50.117111, -5.477593)
+	val p2 = GeoPoint.parse(51.129552, 1.321179)
 
-		val p1 = GeoPoint.parse(50.117111, -5.477593)
-		val p2 = GeoPoint.parse(51.129552, 1.321179)
+	"Distance computation" should {
 
 		"be reflexive" in {
 			val distance = Distance.between(p1, p2)
@@ -36,8 +36,25 @@ class PointToPointDistanceSpec extends Specification {
 
 		"fail if the two GeoPoints have different reference ellipsoids" in {
 			val p3 = GeoPoint.parse(0.0, 0.0, Ellipsoid.GRS80)
-			p3.distanceTo(p1) must throwA[UnsupportedOperationException]
-			p2.distanceTo(p3) must throwA[UnsupportedOperationException]
+			p3.distanceTo(p1) must throwAn[UnsupportedOperationException]
+			p2.distanceTo(p3) must throwAn[UnsupportedOperationException]
+		}
+
+	}
+
+	"Midpoint computation" should {
+
+		"be callable from GeoPoint" in {
+			val midpoint = p1.midpointTo(p2)
+			midpoint must beAnInstanceOf[GeoPoint]
+			midpoint.getReferenceEllipsoid must be equalTo(p1.getReferenceEllipsoid)
+			midpoint must not beTheSameAs(p1)
+			midpoint must not beTheSameAs(p2)
+		}
+
+		"return the correct result" in {
+			// accuracy of reference point ~11.1m
+			p1.midpointTo(p2).distanceTo(GeoPoint.parse(50.6728, -2.1148)).in(MetricUnit.meters) must be lessThan(10)
 		}
 
 	}

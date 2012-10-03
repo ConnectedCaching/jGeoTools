@@ -23,8 +23,8 @@ class PointToPointBearingSpec extends Specification {
 
 		"fail if the two GeoPoints have different reference ellipsoids" in {
 			val p3 = GeoPoint.parse(0.0, 0.0, Ellipsoid.GRS80)
-			p3.distanceTo(p1) must throwA[UnsupportedOperationException]
-			p2.distanceTo(p3) must throwA[UnsupportedOperationException]
+			p3.distanceTo(p1) must throwAn[UnsupportedOperationException]
+			p2.distanceTo(p3) must throwAn[UnsupportedOperationException]
 		}
 
 	}

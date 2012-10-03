@@ -31,4 +31,14 @@ public class PointToPointDistance extends Distance {
 		return getHaversineDistance();
 	}
 
+	public GeoPoint midpoint() {
+		Double bx = Math.cos(p2.getLatitudeRadians()) * Math.cos(getLongitudeDistance());
+		Double by = Math.cos(p2.getLatitudeRadians()) * Math.sin(getLongitudeDistance());
+		Double latitude = Math.atan2(Math.sin(p1.getLatitudeRadians()) + Math.sin(p2.getLatitudeRadians()),
+				Math.sqrt(Math.pow(Math.cos(p1.getLatitudeRadians()) + bx, 2) + Math.pow(by, 2)));
+		Double longitude = p1.getLongitudeRadians() + Math.atan2(by, Math.cos(p1.getLatitudeRadians()) + bx);
+		longitude = (longitude + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
+		return GeoPoint.parse(Math.toDegrees(latitude), Math.toDegrees(longitude), p1.getReferenceEllipsoid());
+	}
+
 }

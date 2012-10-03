@@ -9,7 +9,9 @@ import java.util.Locale;
 public class GeoPoint {
 
 	protected Double latitude;
+	protected Double latitudeRadians;
 	protected Double longitude;
+	protected Double longitudeRadians;
 	protected Ellipsoid referenceEllipsoid;
 
 	private GeoPoint() {}
@@ -21,7 +23,9 @@ public class GeoPoint {
 	public static GeoPoint parse(Double latitude, Double longitude, Ellipsoid referenceEllipsoid) {
 		GeoPoint point = new GeoPoint();
 		point.latitude = latitude;
+		point.latitudeRadians = Math.toRadians(latitude);
 		point.longitude = longitude;
+		point.longitudeRadians = Math.toRadians(longitude);
 		point.referenceEllipsoid = referenceEllipsoid;
 		return point;
 	}
@@ -134,7 +138,7 @@ public class GeoPoint {
 	}
 
 	protected Double getLatitudeRadians() {
-		return Math.toRadians(latitude);
+		return latitudeRadians;
 	}
 
 	public Double getLongitude() {
@@ -142,7 +146,7 @@ public class GeoPoint {
 	}
 
 	protected Double getLongitudeRadians() {
-		return Math.toRadians(longitude);
+		return longitudeRadians;
 	}
 
 	public Ellipsoid getReferenceEllipsoid() {

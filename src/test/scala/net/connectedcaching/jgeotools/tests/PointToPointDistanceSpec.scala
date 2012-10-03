@@ -2,6 +2,7 @@ package net.connectedcaching.jgeotools.tests
 
 import org.specs2.mutable._
 import net.connectedcaching.jgeotools.{Distance, MetricUnit, GeoPoint}
+import net.connectedcaching.jgeotools.vincenty.Ellipsoid
 
 class PointToPointDistanceSpec extends Specification {
 
@@ -31,6 +32,12 @@ class PointToPointDistanceSpec extends Specification {
 			val meters = Distance.between(p1, p2).in(MetricUnit.meters)
 			val kilometers = Distance.between(p1, p2).in(MetricUnit.kilometers)
 			kilometers must be equalTo(meters / 1000)
+		}
+
+		"fail if the two GeoPoints have different reference ellipsoids" in {
+			val p3 = GeoPoint.parse(0.0, 0.0, Ellipsoid.GRS80)
+			p3.distanceTo(p1) must throwA[UnsupportedOperationException]
+			p2.distanceTo(p3) must throwA[UnsupportedOperationException]
 		}
 
 	}

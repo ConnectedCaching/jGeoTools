@@ -1,13 +1,10 @@
 package net.connectedcaching.jgeotools;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class PointToPointDistance extends Distance {
 
 	public PointToPointDistance(GeoPoint p1, GeoPoint p2) {
 		this.p1 = p1;
-		this.p2 = p2;
+		this.p2 = p2.convertTo(p1.getReferenceEllipsoid());
 	}
 
 	protected GeoPoint p1;

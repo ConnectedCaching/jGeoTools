@@ -102,6 +102,13 @@ public class GeoPoint {
 			longitude != 0 ? longitudeDirection : "", decimalToDms(longitude, locale));
 	}
 
+	public GeoPoint convertTo(Ellipsoid referenceEllipsoid) {
+		if (this.referenceEllipsoid == referenceEllipsoid) {
+			return this;
+		}
+		throw new UnsupportedOperationException("Conversion between different reference ellipsoids is not yet implemented");
+	}
+
 	public Bearing bearingTo(GeoPoint that) {
 		return Bearing.between(this, that);
 	}

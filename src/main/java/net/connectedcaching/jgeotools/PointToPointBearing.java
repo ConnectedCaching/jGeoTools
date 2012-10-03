@@ -4,7 +4,7 @@ public class PointToPointBearing extends Bearing {
 
 	public PointToPointBearing(GeoPoint from, GeoPoint to) {
 		this.from = from;
-		this.to = to;
+		this.to = to.convertTo(from.getReferenceEllipsoid());
 	}
 
 	protected GeoPoint from;

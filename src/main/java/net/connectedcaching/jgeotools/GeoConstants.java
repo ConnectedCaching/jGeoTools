@@ -17,4 +17,6 @@ public class GeoConstants {
 		REFERENCE_ELLIPSOIDS.put(Ellipsoid.WGS84, new EllipsoidParameters(6378137.0, 6356752.3142, 298.257223563));
 	}
 
+	public static final Ellipsoid DEFAULT_ELLIPSOID = Ellipsoid.WGS84;
+
 }

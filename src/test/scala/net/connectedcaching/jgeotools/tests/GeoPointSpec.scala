@@ -133,8 +133,8 @@ class GeoPointSpec extends Specification with BeforeAfter {
 
 		"work if no true conversion has to be done" in {
 			val geoPoint = GeoPoint.parse(0.0, 0.0, Ellipsoid.WGS84)
-			geoPoint.convertTo(Ellipsoid.WGS84) must beAnInstanceOf[GeoPoint]
-			geoPoint.convertTo(Ellipsoid.WGS84).getReferenceEllipsoid must be equalTo(Ellipsoid.WGS84)
+			geoPoint.convertTo(GeoConstants.DEFAULT_ELLIPSOID) must beAnInstanceOf[GeoPoint]
+			geoPoint.convertTo(GeoConstants.DEFAULT_ELLIPSOID).getReferenceEllipsoid must be equalTo(GeoConstants.DEFAULT_ELLIPSOID)
 		}
 
 		"throw an exception for true conversions since they are not yet supported" in {

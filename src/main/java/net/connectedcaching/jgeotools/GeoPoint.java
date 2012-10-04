@@ -14,20 +14,20 @@ public class GeoPoint {
 	protected Double longitudeRadians;
 	protected Ellipsoid referenceEllipsoid;
 
-	private GeoPoint() {}
+	private GeoPoint(Double latitude, Double longitude, Ellipsoid referenceEllipsoid) {
+		this.latitude = latitude;
+		this.latitudeRadians = Math.toRadians(latitude);
+		this.longitude = longitude;
+		this.longitudeRadians = Math.toRadians(longitude);
+		this.referenceEllipsoid = referenceEllipsoid;
+	}
 
 	public static GeoPoint parse(Double latitude, Double longitude) {
-		return parse(latitude, longitude, Ellipsoid.WGS84);
+		return parse(latitude, longitude, GeoConstants.DEFAULT_ELLIPSOID);
 	}
 
 	public static GeoPoint parse(Double latitude, Double longitude, Ellipsoid referenceEllipsoid) {
-		GeoPoint point = new GeoPoint();
-		point.latitude = latitude;
-		point.latitudeRadians = Math.toRadians(latitude);
-		point.longitude = longitude;
-		point.longitudeRadians = Math.toRadians(longitude);
-		point.referenceEllipsoid = referenceEllipsoid;
-		return point;
+		return new GeoPoint(latitude, longitude, referenceEllipsoid);
 	}
 
 	public String as(GeoPointFormat format) {

@@ -143,6 +143,19 @@ class GeoPointSpec extends Specification with BeforeAfter {
 
 	}
 
+	"GeoPoint parsing" should {
+
+		"return a GeoPoint for valid decimal degree input" in {
+			GeoPoint.parse("-33.855270°, 151.209725°") must beAnInstanceOf[GeoPoint]
+			GeoPoint.parse("-33.855270 151.209725") must beAnInstanceOf[GeoPoint]
+		}
+
+		"throw a RuntimeException for garbage input" in {
+			GeoPoint.parse("Foobaz") must throwA[RuntimeException]
+		}
+
+	}
+
 	def after {
 		Locale.setDefault(defaultLocale)
 	}

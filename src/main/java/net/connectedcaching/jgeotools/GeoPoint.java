@@ -1,5 +1,6 @@
 package net.connectedcaching.jgeotools;
 
+import net.connectedcaching.jgeotools.parsers.GeoPointParser;
 import net.connectedcaching.jgeotools.vincenty.Ellipsoid;
 
 import java.text.DecimalFormat;
@@ -28,6 +29,15 @@ public class GeoPoint {
 
 	public static GeoPoint parse(Double latitude, Double longitude, Ellipsoid referenceEllipsoid) {
 		return new GeoPoint(latitude, longitude, referenceEllipsoid);
+	}
+
+	public static GeoPoint parse(String coordinates) {
+		return parse(coordinates, GeoConstants.DEFAULT_ELLIPSOID);
+	}
+
+	public static GeoPoint parse(String coordinates, Ellipsoid referenceEllipsoid) {
+		GeoPointParser parser = GeoPointParser.getParserFor(coordinates);
+		return parser.parse(coordinates, referenceEllipsoid);
 	}
 
 	public String as(GeoPointFormat format) {

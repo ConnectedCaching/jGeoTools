@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class DecimalDegreeParser extends GeoPointParser {
 
-	protected Pattern coordinatePattern = Pattern.compile("^(-?\\d+?[.,]\\d+)°? ?,? ?(-?\\d+?[.,]\\d+)°?$");
+	protected Pattern coordinatePattern = Pattern.compile("^(-?\\d+?\\.\\d+)°? ?,? ?(-?\\d+?\\.\\d+)°?$");
 
 	@Override
 	public boolean canParse(String input) {

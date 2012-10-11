@@ -11,7 +11,7 @@ class Gpx10ParserSpec extends Specification {
 	"GPX v1.0 parsing" should {
 
 		val serializer: Serializer = new Persister()
-		val source = new File("src/test/scala/net/connectedcaching/jgeotools/tests/parsers/gpx/sample.gpx")
+		val source = new File("src/test/scala/net/connectedcaching/jgeotools/tests/parsers/gpx/Gpx10Sample.gpx")
 
 		"be able to read the provided sample file" in {
 			serializer.read(classOf[Gpx], source) must beAnInstanceOf[Gpx]

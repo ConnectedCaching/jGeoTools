@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import net.connectedcaching.jgeotools.parsers.gpx.gc101.Cache;
 import org.simpleframework.xml.*;
 
 
@@ -851,7 +852,8 @@ public class Gpx {
 		"vdop",
 		"pdop",
 		"ageofdgpsdata",
-		"dgpsid"
+		"dgpsid",
+		"cache"
 	})
 	@Root(strict = false)
 	@Default(required = false)
@@ -885,6 +887,9 @@ public class Gpx {
 		protected BigDecimal lat;
 		@Attribute(required = false)
 		protected BigDecimal lon;
+
+		// Geocaching.com extension
+		protected Cache cache;
 
 		public BigDecimal getEle() {
 			return ele;
@@ -1052,6 +1057,14 @@ public class Gpx {
 
 		public void setLon(BigDecimal value) {
 			this.lon = value;
+		}
+
+		public Cache getCache() {
+			return cache;
+		}
+
+		public void setCache(Cache value) {
+			this.cache = value;
 		}
 
 	}

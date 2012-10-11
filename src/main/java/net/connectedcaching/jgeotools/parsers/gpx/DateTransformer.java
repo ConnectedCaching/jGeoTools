@@ -28,10 +28,6 @@ public class DateTransformer implements Transform<Date> {
 				return result;
 			} catch (ParseException e) {}
 		}
-		// GC.com also exports crap dates like 2012-10-11T19:08:56.3786904Z, so try again
-		if (value.length() > 24) {
-			return read(value.replaceAll("\\.(\\d\\d\\d)\\d*Z", ".$1Z"));
-		}
 		throw new ParseException("Unparseable date: " + value, 0);
 	}
 

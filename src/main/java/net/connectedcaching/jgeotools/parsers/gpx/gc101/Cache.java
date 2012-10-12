@@ -6,7 +6,7 @@ import java.util.List;
 import org.simpleframework.xml.*;
 
 
-/*@Order(elements = {
+@Order(elements = {
 	"name",
 	"placed_by",
 	"owner",
@@ -17,12 +17,12 @@ import org.simpleframework.xml.*;
 	"terrain",
 	"country",
 	"state",
-	"shortDescription",
-	"longDescription",
+	"short_description",
+	"long_description",
 	"encoded_hints",
 	"logs",
 	"travelbugs"
-})*/
+})
 @Root(name = "cache", strict = false)
 @Namespace(reference = "http://www.groundspeak.com/cache/1/0/1")
 @Default(required = false)
@@ -31,31 +31,30 @@ public class Cache {
 	protected String name;
 	@Element(name = "placed_by", required = false)
 	protected String placedBy;
-	@ElementList(inline = true, required = false)
-	protected List<Cache.Owner> owner;
+	protected User owner;
 	protected String type;
 	protected String container;
-	protected List<Cache.Attribute> attributes;
+	protected List<Attribute> attributes;
 	protected String difficulty;
 	protected String terrain;
 	protected String country;
 	protected String state;
-	@ElementList(name = "short_description", inline = true, required = false)
-	protected List<Cache.ShortDescription> shortDescription;
-	@ElementList(name = "long_description", inline = true, required = false)
-	protected List<Cache.LongDescription> longDescription;
+	@Element(name = "short_description", required = false)
+	protected Description shortDescription;
+	@Element(name = "long_description", required = false)
+	protected Description longDescription;
 	@Element(name = "encoded_hints")
 	protected String encodedHints;
-	@ElementList(inline = true, required = false)
-	protected List<Cache.Log> logs;
-	@ElementList(inline = true, required = false)
-	protected List<Cache.Travelbug> travelbugs;
+	@ElementList(required = false)
+	protected List<Log> logs;
+	@ElementList(required = false)
+	protected List<Travelbug> travelbugs;
 	@org.simpleframework.xml.Attribute
 	protected String id;
 	@org.simpleframework.xml.Attribute
-	protected String available;
+	protected Boolean available;
 	@org.simpleframework.xml.Attribute
-	protected String archived;
+	protected Boolean archived;
 
 	public String getName() {
 		return name;
@@ -73,10 +72,10 @@ public class Cache {
 		this.placedBy = value;
 	}
 
-	public List<Cache.Owner> getOwner() {
-		if (owner == null) {
-			owner = new ArrayList<Cache.Owner>();
-		}
+	public User getOwner() {
+		//if (owner == null) {
+		//	owner = new ArrayList<User>();
+		//}
 		return this.owner;
 	}
 
@@ -96,9 +95,9 @@ public class Cache {
 		this.container = value;
 	}
 
-	public List<Cache.Attribute> getAttributes() {
+	public List<Attribute> getAttributes() {
 		if (attributes == null) {
-			attributes = new ArrayList<Cache.Attribute>();
+			attributes = new ArrayList<Attribute>();
 		}
 		return this.attributes;
 	}
@@ -135,17 +134,17 @@ public class Cache {
 		this.state = value;
 	}
 
-	public List<Cache.ShortDescription> getShortDescription() {
-		if (shortDescription == null) {
-			shortDescription = new ArrayList<Cache.ShortDescription>();
-		}
+	public Description getShortDescription() {
+		//if (shortDescription == null) {
+		//	shortDescription = new Description();
+		//}
 		return this.shortDescription;
 	}
 
-	public List<Cache.LongDescription> getLongDescription() {
-		if (longDescription == null) {
-			longDescription = new ArrayList<Cache.LongDescription>();
-		}
+	public Description getLongDescription() {
+		//if (longDescription == null) {
+		//	longDescription = new ArrayList<Description>();
+		//}
 		return this.longDescription;
 	}
 
@@ -157,16 +156,16 @@ public class Cache {
 		this.encodedHints = value;
 	}
 
-	public List<Cache.Log> getLogs() {
+	public List<Log> getLogs() {
 		if (logs == null) {
-			logs = new ArrayList<Cache.Log>();
+			logs = new ArrayList<Log>();
 		}
 		return this.logs;
 	}
 
-	public List<Cache.Travelbug> getTravelbugs() {
+	public List<Travelbug> getTravelbugs() {
 		if (travelbugs == null) {
-			travelbugs = new ArrayList<Cache.Travelbug>();
+			travelbugs = new ArrayList<Travelbug>();
 		}
 		return this.travelbugs;
 	}
@@ -179,324 +178,20 @@ public class Cache {
 		this.id = value;
 	}
 
-	public String getAvailable() {
+	public Boolean getAvailable() {
 		return available;
 	}
 
-	public void setAvailable(String value) {
+	public void setAvailable(Boolean value) {
 		this.available = value;
 	}
 
-	public String getArchived() {
+	public Boolean getArchived() {
 		return archived;
 	}
 
-	public void setArchived(String value) {
+	public void setArchived(Boolean value) {
 		this.archived = value;
 	}
-
-
-	@Default(required = false)
-	public static class Attribute {
-
-		@Text
-		protected String value;
-		@org.simpleframework.xml.Attribute
-		protected String id;
-		@org.simpleframework.xml.Attribute
-		protected Byte inc;
-
-		public String getValue() {
-			return value;
-		}
-
-		public void setValue(String value) {
-			this.value = value;
-		}
-
-		public String getId() {
-			return id;
-		}
-
-		public void setId(String value) {
-			this.id = value;
-		}
-
-		public Byte getInc() {
-			return inc;
-		}
-
-		public void setInc(Byte value) {
-			this.inc = value;
-		}
-
-	}
-
-
-	@Order(elements = {
-		"date",
-		"type",
-		"finder",
-		"text",
-		"logWpt"
-	})
-	@Default(required = false)
-	public static class Log {
-
-		protected String date;
-		protected String type;
-		protected List<Cache.Log.Finder> finder;
-		protected List<Cache.Log.Text> text;
-		@Element(name = "log_wpt")
-		protected List<Cache.Log.LogWpt> logWpt;
-		@org.simpleframework.xml.Attribute
-		protected String id;
-
-		public String getDate() {
-			return date;
-		}
-
-		public void setDate(String value) {
-			this.date = value;
-		}
-
-		public String getType() {
-			return type;
-		}
-
-		public void setType(String value) {
-			this.type = value;
-		}
-
-		public List<Cache.Log.Finder> getFinder() {
-			if (finder == null) {
-				finder = new ArrayList<Cache.Log.Finder>();
-			}
-			return this.finder;
-		}
-
-		public List<Cache.Log.Text> getText() {
-			if (text == null) {
-				text = new ArrayList<Cache.Log.Text>();
-			}
-			return this.text;
-		}
-
-		public List<Cache.Log.LogWpt> getLogWpt() {
-			if (logWpt == null) {
-				logWpt = new ArrayList<Cache.Log.LogWpt>();
-			}
-			return this.logWpt;
-		}
-
-		public String getId() {
-			return id;
-		}
-
-		public void setId(String value) {
-			this.id = value;
-		}
-
-
-		@Default(required = false)
-		public static class Finder {
-
-			@org.simpleframework.xml.Text
-			protected String value;
-			@org.simpleframework.xml.Attribute
-			protected String id;
-
-			public String getValue() {
-				return value;
-			}
-
-			public void setValue(String value) {
-				this.value = value;
-			}
-
-			public String getId() {
-				return id;
-			}
-
-			public void setId(String value) {
-				this.id = value;
-			}
-
-		}
-
-
-		@Default(required = false)
-		public static class LogWpt {
-
-			@org.simpleframework.xml.Attribute
-			protected String lat;
-			@org.simpleframework.xml.Attribute
-			protected String lon;
-
-			public String getLat() {
-				return lat;
-			}
-
-			public void setLat(String value) {
-				this.lat = value;
-			}
-
-			public String getLon() {
-				return lon;
-			}
-
-			public void setLon(String value) {
-				this.lon = value;
-			}
-
-		}
-
-
-		@Default(required = false)
-		public static class Text {
-
-			@org.simpleframework.xml.Text
-			protected String value;
-			@org.simpleframework.xml.Attribute
-			protected String encoded;
-
-			public String getValue() {
-				return value;
-			}
-
-			public void setValue(String value) {
-				this.value = value;
-			}
-
-			public String getEncoded() {
-				return encoded;
-			}
-
-			public void setEncoded(String value) {
-				this.encoded = value;
-			}
-
-		}
-
-	}
-
-
-
-	@Default(required = false)
-	public static class LongDescription {
-
-		@Text
-		protected String value;
-		@org.simpleframework.xml.Attribute
-		protected String html;
-
-		public String getValue() {
-			return value;
-		}
-
-		public void setValue(String value) {
-			this.value = value;
-		}
-
-		public String getHtml() {
-			return html;
-		}
-
-		public void setHtml(String value) {
-			this.html = value;
-		}
-
-	}
-
-
-	@Default(required = false)
-	public static class Owner {
-
-		@Text
-		protected String value;
-		@org.simpleframework.xml.Attribute
-		protected String id;
-
-		public String getValue() {
-			return value;
-		}
-
-		public void setValue(String value) {
-			this.value = value;
-		}
-
-		public String getId() {
-			return id;
-		}
-
-		public void setId(String value) {
-			this.id = value;
-		}
-
-	}
-
-
-	@Default(required = false)
-	public static class ShortDescription {
-
-		@Text
-		protected String value;
-		@org.simpleframework.xml.Attribute
-		protected String html;
-
-		public String getValue() {
-			return value;
-		}
-
-		public void setValue(String value) {
-			this.value = value;
-		}
-
-		public String getHtml() {
-			return html;
-		}
-
-		public void setHtml(String value) {
-			this.html = value;
-		}
-
-	}
-
-
-	@Default(required = false)
-	public static class Travelbug {
-
-		protected String name;
-		@org.simpleframework.xml.Attribute
-		protected String id;
-		@org.simpleframework.xml.Attribute
-		protected String ref;
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String value) {
-			this.name = value;
-		}
-
-		public String getId() {
-			return id;
-		}
-
-		public void setId(String value) {
-			this.id = value;
-		}
-
-		public String getRef() {
-			return ref;
-		}
-
-		public void setRef(String value) {
-			this.ref = value;
-		}
-
-	}
-
 
 }

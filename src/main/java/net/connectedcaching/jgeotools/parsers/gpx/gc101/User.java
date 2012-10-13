@@ -7,16 +7,16 @@ import org.simpleframework.xml.Text;
 public class User {
 
 	@Text
-	protected String value;
+	protected String name;
 	@org.simpleframework.xml.Attribute
 	protected String id;
 
-	public String getValue() {
-		return value;
+	public String getName() {
+		return name;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getId() {

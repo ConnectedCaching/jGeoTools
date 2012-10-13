@@ -43,11 +43,9 @@ public class Cache {
 	protected Description shortDescription;
 	@Element(name = "long_description", required = false)
 	protected Description longDescription;
-	@Element(name = "encoded_hints")
+	@Element(name = "encoded_hints", required = false)
 	protected String encodedHints;
-	@ElementList(required = false)
 	protected List<Log> logs;
-	@ElementList(required = false)
 	protected List<Travelbug> travelbugs;
 	@org.simpleframework.xml.Attribute
 	protected String id;
@@ -73,10 +71,11 @@ public class Cache {
 	}
 
 	public User getOwner() {
-		//if (owner == null) {
-		//	owner = new ArrayList<User>();
-		//}
 		return this.owner;
+	}
+
+	public void setOwner(User value) {
+		this.owner = value;
 	}
 
 	 public String getType() {
@@ -135,17 +134,19 @@ public class Cache {
 	}
 
 	public Description getShortDescription() {
-		//if (shortDescription == null) {
-		//	shortDescription = new Description();
-		//}
 		return this.shortDescription;
 	}
 
+	public void setShortDescription(Description value) {
+		this.shortDescription = value;
+	}
+
 	public Description getLongDescription() {
-		//if (longDescription == null) {
-		//	longDescription = new ArrayList<Description>();
-		//}
 		return this.longDescription;
+	}
+
+	public void setLongDescription(Description value) {
+		this.longDescription = value;
 	}
 
 	public String getEncodedHints() {

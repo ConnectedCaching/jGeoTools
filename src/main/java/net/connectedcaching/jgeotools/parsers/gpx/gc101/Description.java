@@ -1,7 +1,6 @@
 package net.connectedcaching.jgeotools.parsers.gpx.gc101;
 
 import org.simpleframework.xml.Default;
-import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Text;
 
 @Default(required = false)
@@ -9,8 +8,8 @@ public class Description {
 
 	@Text
 	protected String value;
-	@org.simpleframework.xml.Attribute
-	protected String html;
+	@org.simpleframework.xml.Attribute(name = "html")
+	protected Boolean containsHtml;
 
 	public String getValue() {
 		return value;
@@ -20,12 +19,12 @@ public class Description {
 		this.value = value;
 	}
 
-	public String getHtml() {
-		return html;
+	public Boolean containsHtml() {
+		return containsHtml;
 	}
 
-	public void setHtml(String value) {
-		this.html = value;
+	public void setContainsHtml(Boolean value) {
+		this.containsHtml = value;
 	}
 
 }

@@ -5,6 +5,7 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Order;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Order(elements = {
@@ -17,7 +18,7 @@ import java.util.List;
 @Default(required = false)
 public class Log {
 
-	protected String date;
+	protected GregorianCalendar date;
 	protected String type;
 	protected User finder;
 	protected Log.Text text;
@@ -26,11 +27,11 @@ public class Log {
 	@org.simpleframework.xml.Attribute
 	protected String id;
 
-	public String getDate() {
+	public GregorianCalendar getDate() {
 		return date;
 	}
 
-	public void setDate(String value) {
+	public void setDate(GregorianCalendar value) {
 		this.date = value;
 	}
 
@@ -43,17 +44,19 @@ public class Log {
 	}
 
 	public User getFinder() {
-		//if (finder == null) {
-		//	finder = new ArrayList<User>();
-		//}
 		return this.finder;
 	}
 
+	public void setFinder(User value) {
+		this.finder = value;
+	}
+
 	public Log.Text getText() {
-		//if (text == null) {
-		//	text = new ArrayList<Log.Text>();
-		//}
 		return this.text;
+	}
+
+	public void setText(Text value) {
+		this.text = value;
 	}
 
 	public List<Log.LogWpt> getLogWpt() {
@@ -104,8 +107,8 @@ public class Log {
 
 		@org.simpleframework.xml.Text
 		protected String value;
-		@org.simpleframework.xml.Attribute
-		protected String encoded;
+		@org.simpleframework.xml.Attribute(name = "encoded")
+		protected Boolean isEncoded;
 
 		public String getValue() {
 			return value;
@@ -115,12 +118,12 @@ public class Log {
 			this.value = value;
 		}
 
-		public String getEncoded() {
-			return encoded;
+		public Boolean isEncoded() {
+			return isEncoded;
 		}
 
-		public void setEncoded(String value) {
-			this.encoded = value;
+		public void setIsEncoded(Boolean value) {
+			this.isEncoded = value;
 		}
 
 	}
